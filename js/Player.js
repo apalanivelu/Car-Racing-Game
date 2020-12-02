@@ -25,6 +25,18 @@ class Player {
       distance:this.distance
     });
   }
+  getFinishedPlayers(){
+    var FinishedPlayersRef = database.ref("finishedPlayers")
+    FinishedPlayersRef.on("value",(data)=>{
+      finishedPlayers = data.val()
+    })
+  }
+  static updateFinishedPlayers(){
+    database.ref('/').update({finishedPlayers:finishedPlayers +1})
+
+
+  }
+
 
   static getPlayerInfo(){
     var playerInfoRef = database.ref('players');
