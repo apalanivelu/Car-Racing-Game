@@ -10,7 +10,7 @@ var form, player, game;
 
 var cars, car1, car2, car3, car4;
 var car1Image,car2Image,car3Image,car4Image, trackImage;
-var finishedPlayers = 0
+//var finishedPlayers = 0
 
 function preload(){
 car1Image = loadImage("images/car1.png")
@@ -37,8 +37,8 @@ function draw(){
     clear();
     game.play();
   }
-  if(gameState === 2 && finishedPlayers === 4){
+  if(gameState === 2 && player.rank === 4){
     console.log("Game Ended")
-
+    game.displayRanks()
   }
 }

@@ -68,29 +68,72 @@ class Game {
         cars[index-1].y = y;
 
         if (index === player.index){
-          cars[index - 1].shapeColor = "red";
+          fill("red")
+          ellipse(x,y,60,60)
           camera.position.x = displayWidth/2;
           camera.position.y = cars[index-1].y
         }
-       
-        //textSize(15);
-        //text(allPlayers[plr].name + ": " + allPlayers[plr].distance, 120,display_position)
+        textAlign(CENTER)
+        textSize(15);
+        text(allPlayers[plr].name, cars[index-1].x, cars[index-1].y-75)
+        
       }
+    
 
     }
 
     if(keyIsDown(UP_ARROW) && player.index !== null){
-      player.distance +=10
+      player.distance = player.distance + Math.round(random(20,70))
+      player.update();
+    }
+    if(keyIsDown(DOWN_ARROW) && player.index !== null){
+      player.distance -=50
       player.update();
     }
 
     if(player.distance > 4210) {
-      Player.updateFinishedPlayers()
       gameState = 2
+      player.rank +=1
+      Player.updateFinishedPlayers(player.rank)
       console.log("End")
+      player.update()
+      textSize(25)
+      text("your rank:"+player.rank,displayWidth/2,y-120)
+    }
+    if(player.distance > 4210 && player.rank === 1){
+      console.log("1st Place")
 
 
     }
+   
     drawSprites();
+  }
+  displayRanks(){
+    camera.position.x = 0
+    camera.position.y = 0
+    Player.getPlayerInfo()
+    for(var plr in allPlayers){
+      if(allPlayers[plr].rank ===1){
+        fill("yellow")
+        textSize(30)
+        text("first:"+allPlayers[plr].name,0,100)
+      } else if(allPlayers[plr].rank ===2){
+        fill("gray")
+        textSize(30)
+        text("Second:"+allPlayers[plr].name,0,150)
+
+      } else if(allPlayers[plr].rank ===3){
+        fill("orange")
+        textSize(30)
+        text("Third:"+allPlayers[plr].name,0,200)
+
+      } else{
+        fill("red")
+        textSize(30)
+        text("Fourth:"+allPlayers[plr].name,0,250)
+
+      }
+
+    }
   }
 }
